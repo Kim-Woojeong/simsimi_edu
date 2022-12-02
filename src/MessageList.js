@@ -3,9 +3,9 @@ import MessageItem from "./MessageItem";
 const MessageList = ({MessageList}) => {
     console.log(MessageList);
     return (
-        <div className="MessageList">
+        <div className="MessageListContainer">
             <h2>내가 가르친 말</h2>
-            <div>
+            <div className="MessageList">
                 {MessageList.map(it => (
                     <MessageItem key={it.id} {...it}/>
                 ))}

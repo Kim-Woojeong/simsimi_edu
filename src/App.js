@@ -23,17 +23,16 @@ import MessageList from './MessageList';
 
 function App() {
   const [data, setData] = useState([]); // 가장위에서 데이터를 관리할 state
-  const dataId = useRef(0); // 추가될 일기의 id를 담을 변수
+  const dataId = useRef(0); // 추가될 메세지의 id를 담을 변수
 
   const onCreate = (contents, answer) => {
-
     const newMessage = {
       id: dataId.current,
       contents,
       answer,
     }
     dataId.current += 1;
-    setData([newMessage, ...data]);
+    setData([...data, newMessage]);
   }
 
   return (
