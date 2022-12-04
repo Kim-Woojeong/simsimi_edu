@@ -20,7 +20,7 @@ const Home = ({onCreate}) => {
         console.log(state); // 한쪽만 입력하면 한쪽만 나옴.
     };
 
-    const handleSubmit = () => {
+    function handleSubmit () {
         alert("다른사람이 이렇게 말하면 : " + state.contents + "/ 심심이가 대답합니다" + state.answer);
         onCreate(state.contents, state.answer);
 
