@@ -1,13 +1,17 @@
 import { useRef, useState } from "react";
-import SimsimiImg from './img/simsimi.png';
+import SimsimiImg from '../img/simsimi.png';
+import MessageSendBtn from '../img/sendbutton.png';
+import Narration from "./Narration";
+import TeachBtn from "../img/teachbtn.png";
+import TeachModal from "./TeachModal";
 
 const Home = ({onCreate}) => {
     const contentsInput = useRef();
-    const answerInput = useRef();
+    // const answerInput = useRef();
 
     const [state, setState] = useState({
         contents: "",
-        answer: "",
+        // answer: "",
     });
 
     const handleChangeState = e => {
@@ -21,12 +25,12 @@ const Home = ({onCreate}) => {
     };
 
     function handleSubmit () {
-        alert("다른사람이 이렇게 말하면 : " + state.contents + "/ 심심이가 대답합니다" + state.answer);
-        onCreate(state.contents, state.answer);
+        // alert("다른사람이 이렇게 말하면 : " + state.contents + "/ 심심이가 대답합니다" + state.answer);
+        onCreate(state.contents);
 
         setState({
             contents: "",
-            answer: "",
+            // answer: "",
         });
     };
 
@@ -34,10 +38,11 @@ const Home = ({onCreate}) => {
         <div className="Home">
             <div className="homeTitle">
                 <h1>Simsimi Edu</h1>
-                <h3>나만의 AI 만들기</h3>
+                <h3>나만의 AI 챗봇 심심이 만들기</h3>
             </div>
+            {/* <TellMeYourName /> */}
             <div className="SimsimiBackground">
-                <span>모르는말이에요 가르쳐주세요!</span>
+                <span>모르는말이에요, 가르쳐주세요!</span>
                 <img src={SimsimiImg} alt="심심이이미지"/>
             </div>
             <div className="messageInputSendArea">
@@ -47,20 +52,23 @@ const Home = ({onCreate}) => {
                         name="contents"
                         value={state.contents}
                         onChange={handleChangeState}
-                        placeholder="누군가가 이렇게 말하면"
-                    />
-                    <input
-                        ref={answerInput}
-                        name="answer"
-                        value={state.answer}
-                        onChange={handleChangeState}
-                        placeholder="심심이가 답합니다"
+                        placeholder="심심이에게 말걸기"
                     />
                 </div>
-                <div className="buttonArea">
-                    <button onClick={handleSubmit}>가르치기</button>
+                <div className="submitBtn">
+                    <button onClick={handleSubmit}>G</button>
                 </div>
+                {/* <div className="buttonArea">
+                    <img src={MessageSendBtn} alt="보내기버튼" onClick={handleSubmit}/>
+                </div> */}
+                {/* <div className="teachBtn">
+                    <button>
+                        <img src={TeachBtn} alt="가르치기"/>
+                    </button>
+                </div> */}
             </div>
+            {/* {<Narration />} */}
+            {<TeachModal />}
         </div>
     );
 }

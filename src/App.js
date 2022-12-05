@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 import './App.css';
-import Home from './Home';
-import MessageList from './MessageList';
 import { createGlobalStyle } from "styled-components";
+import Home from './components/Home';
+import MessageList from './components/MessageList';
 
 // const dummyList = [
 //   {
@@ -86,10 +86,13 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Home onCreate={onCreate}/>
-      <MessageList MessageList={data}/>
-    </div>
+    <>
+      <GlobalStyle />
+      <div className="App">
+        <Home onCreate={onCreate}/>
+        {/* <MessageList MessageList={data}/> */}
+      </div>
+    </>
   );
 }
 
