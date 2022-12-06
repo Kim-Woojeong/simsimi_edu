@@ -3,6 +3,7 @@ import './App.css';
 import { createGlobalStyle } from "styled-components";
 import Home from './components/Home';
 import MessageList from './components/MessageList';
+import Cover from './components/Cover';
 
 // const dummyList = [
 //   {
@@ -73,15 +74,16 @@ table {
 
 function App() {
   const [data, setData] = useState([]); // 가장위에서 데이터를 관리할 state
-  const dataId = useRef(0); // 추가될 메세지의 id를 담을 변수
+  // const dataId = useRef(0); // 추가될 메세지의 id를 담을 변수
 
-  const onCreate = (contents, answer) => {
+  const onCreate = (teachQuestion, teachAnswer) => {
     const newMessage = {
-      id: dataId.current,
-      contents,
-      answer,
+      // id: dataId.current,
+      // id 는 Step 값 넣기
+      teachQuestion: "",
+      teachAnswer: "",
     }
-    dataId.current += 1;
+    // dataId.current += 1;
     setData([...data, newMessage]);
   }
 
@@ -91,6 +93,7 @@ function App() {
       <div className="App">
         <Home onCreate={onCreate}/>
         {/* <MessageList MessageList={data}/> */}
+        <Cover />
       </div>
     </>
   );
