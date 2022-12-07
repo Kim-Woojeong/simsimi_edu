@@ -4,6 +4,7 @@ import { createGlobalStyle } from "styled-components";
 import Home from './components/Home';
 import MessageList from './components/MessageList';
 import Cover from './components/Cover';
+import Narration from './components/Narration';
 
 // const dummyList = [
 //   {
@@ -73,27 +74,31 @@ table {
 }`;
 
 function App() {
-  const [data, setData] = useState([]); // 가장위에서 데이터를 관리할 state
   // const dataId = useRef(0); // 추가될 메세지의 id를 담을 변수
+  // 현재 나레이션 단계 값을 담는 state
+  const [step, setStep] = useState(0);
+  const [username, setUsername] = useState("");
+  const [simsimisay, setSimsimisay] = useState("");
+  const [asksimsimi, setAsksimsimi] = useState("");
 
-  const onCreate = (teachQuestion, teachAnswer) => {
-    const newMessage = {
-      // id: dataId.current,
-      // id 는 Step 값 넣기
-      teachQuestion: "",
-      teachAnswer: "",
-    }
-    // dataId.current += 1;
-    setData([...data, newMessage]);
-  }
+  const usernameInput = useRef();
+  const asksimsimiInput = useRef();
+  const teachbuttonRef = useRef();
+  const teachQuestionInput = useRef();
+  const teachAnswerInput = useRef();
+
 
   return (
     <>
       <GlobalStyle />
       <div className="App">
-        <Home onCreate={onCreate}/>
+        { step === 0 ? 
+          <Cover username={username} setUsername={setUsername} usernameInput={usernameInput}/> : 
+          <Home step={step} setStep={setStep} simsimisay={simsimisay} asksimsimiInput={asksimsimiInput} asksimsimi={asksimsimi} setAsksimsimi={setAsksimsimi} teachbuttonRef={teachbuttonRef} teachQuestionInput={teachQuestionInput} teachAnswerInput={teachAnswerInput}/> }
+        {<Narration step={step} setStep={setStep} username={username} usernameInput={usernameInput} setSimsimisay={setSimsimisay} asksimsimi={asksimsimi} setAsksimsimi={setAsksimsimi} asksimsimiInput={asksimsimiInput} teachbuttonRef={teachbuttonRef} teachQuestionInput={teachQuestionInput} teachAnswerInput={teachAnswerInput}/>}
+
         {/* <MessageList MessageList={data}/> */}
-        <Cover />
+
       </div>
     </>
   );

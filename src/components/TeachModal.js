@@ -2,13 +2,13 @@ import { useState } from "react";
 import CloseBtn from "../img/closebutton.png";
 
 
-const TeachModal = ({isvisible, setIsvisible}) => {
+const TeachModal = ({data, onCreate, isvisible, setIsvisible, teachQuestionInput, teachAnswerInput,}) => {
 
-    // 최종적으로는 Home으로 뺴기
+    // teachInput
     const [state, setState] = useState({
         teachQuestion: "",
         teachAnswer: "",
-      });
+    });
 
     const [localContent, setLocalContent] = useState("");
 
@@ -18,20 +18,31 @@ const TeachModal = ({isvisible, setIsvisible}) => {
 
         // 작성내용 초기화
         setLocalContent({
-
+            teachQuestion: "",
+            teachAnswer: "",
         });
     }
 
+    // 현재 값들이 입력될때마다 호출됨.
+    // 다 입력 후 teachinput를 출력하면 하나의 객체 생성됨.
     const handleChangeState = e => {
-        // console.log(e.target.value);
         setState({
             ...state,
             [e.target.name]: e.target.value,
-          });
-    }
+        });
+    };
+
 
     const handleOkayModal = () => {
+
+        onCreate(state.teachQuestion, state.teachAnswer);
+        alert(`${data.length+1}개의 말을 가르쳤습니다.`);
         handleCloseModal();
+
+        setState({
+            teachQuestion: "",
+            teachAnswer: "",
+        });
     }
 
     return(
@@ -44,6 +55,7 @@ const TeachModal = ({isvisible, setIsvisible}) => {
                     <div>
                         <div>이렇게 물어보면</div>
                         <input
+                            ref={teachQuestionInput}
                             name="teachQuestion"
                             value={state.teachQuestion}
                             onChange={handleChangeState}
@@ -51,7 +63,8 @@ const TeachModal = ({isvisible, setIsvisible}) => {
                     </div>
                     <div>
                         <div>이렇게 대답해</div>
-                        <input 
+                        <input
+                            ref={teachAnswerInput}
                             name="teachAnswer"
                             value={state.teachAnswer}
                             onChange={handleChangeState}

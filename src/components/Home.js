@@ -1,38 +1,49 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import SimsimiImg from '../img/simsimi.png';
-import Narration from "./Narration";
 import graduation_cap from "../img/graduation-cap.png";
 import Arrow from "../img/Arrow.png"
 import TeachModal from "./TeachModal";
+import MessageList from "./MessageList";
+import Share from "./Share";
 
-const Home = ({onCreate}) => {
-    const contentsInput = useRef();
-    // const answerInput = useRef();
+const Home = ({setStep, step, simsimisay, asksimsimiInput, asksimsimi, setAsksimsimi, teachbuttonRef, teachQuestionInput, teachAnswerInput}) => {
     const [isvisible, setIsvisible] = useState(false);
-    const [step, setStep] = useState(0);
-    const [state, setState] = useState({
-        contents: "",
-        // answer: "",
-    });
+    const [shareisvisible, setShareisvisible] = useState(false);
 
-    const handleChangeState = e => {
-        setState({
-            ...state,
-            // contents: e.target.contents,
-            // answer: e.target.answer,
-            [e.target.name]: e.target.value, // contents : "안녕", answer : "하세요"
-        });
-        console.log(state); // 한쪽만 입력하면 한쪽만 나옴.
-    };
+    // 가르친말들 다 저장하는곳
+    const [data, setData] = useState([]);
+
+    const onCreate = (teachQuestion, teachAnswer) => {
+        const newMessage = {
+          // id: dataId.current,
+          // id 는 Step 값 넣기
+          teachQuestion,
+          teachAnswer,
+        };
+        // dataId.current += 1;
+        console.log("지금까지 가르친 말은 : ",data);
+
+        // 최초 가르친거라먄
+        if(data.length === 0){
+            setStep(3);
+        }
+        if(data.length === 2){
+            console.log("세개 가르침!");
+            setStep(7);
+        }
+
+        setData([...data, newMessage]);
+        console.log("현재 입력한 데이터 : ",newMessage);
+    }
 
     function handleSubmit () {
         // alert("다른사람이 이렇게 말하면 : " + state.contents + "/ 심심이가 대답합니다" + state.answer);
-        onCreate(state.contents);
+        // onCreate(state.contents);
 
-        setState({
-            contents: "",
-            // answer: "",
-        });
+        // setState({
+        //     contents: "",
+        //     // answer: "",
+        // });
     };
 
     const handleTeachModal = () => {
@@ -40,21 +51,11 @@ const Home = ({onCreate}) => {
         console.log("isvisible값은! : ",isvisible);
     }
 
-    // useEffect(()=>{
-    //     console.log("isvisible 값 변화함! = ",isvisible);
-    // }, [isvisible]);
-    // setIsvisible(true);
-
-    const [hightlightbtn, setHightlightbtn] = useState(false);
-
-    // 스텝별 행동
-    // if(step === 2){
-    //     console.log("가르치자!");
-    //     setHightlightbtn(true);
-    // }
+    if(data.length === 1){
+        console.log("최초 가르치기!");
+    }
 
     return (
-        
         <div className="Home">
             <div className="homeTitle">
                 <h1>Simsimi Edu</h1>
@@ -63,12 +64,15 @@ const Home = ({onCreate}) => {
             {/* <TellMeYourName /> */}
             <div className="imgAndbtn">
                 <div className="SimsimiBackground">
-                    <span>모르는말이에요, 가르쳐주세요!</span>
+                    <span>{simsimisay}</span>
                     <img src={SimsimiImg} alt="심심이이미지"/>
                 </div>
                 
                 <div className="teachBtn">
-                    <button onClick={handleTeachModal}>
+                    <button 
+                        ref={teachbuttonRef}
+                        onClick={handleTeachModal}
+                    >
                         <img src={graduation_cap} alt="학사모"/>
                     </button>
                     <div className="teach">가르치기</div>
@@ -78,10 +82,10 @@ const Home = ({onCreate}) => {
             <div className="messageInputSendArea">
                 <div className="messageInputArea">
                     <input
-                        ref={contentsInput}
+                        ref={asksimsimiInput}
                         name="contents"
-                        value={state.contents}
-                        onChange={handleChangeState}
+                        value={asksimsimi}
+                        onChange={e => setAsksimsimi(e.target.value)}
                         placeholder="심심이에게 말걸기"
                     />
                 </div>
@@ -89,8 +93,10 @@ const Home = ({onCreate}) => {
                     <img src={Arrow} alt="보내기버튼"/>
                 </button>
             </div>
-            {<Narration step={step} setStep={setStep}/>}
-            {isvisible && <TeachModal isvisible={isvisible} setIsvisible={setIsvisible}/>}
+            {(step > 8) && <MessageList MessageList={data}/>}
+            {/* 심심이 말 가르치기 modal */}
+            {isvisible && <TeachModal data={data} onCreate={onCreate} isvisible={isvisible} setIsvisible={setIsvisible} teachQuestionInput={teachQuestionInput} teachAnswerInput={teachAnswerInput}  />}
+            {shareisvisible && <Share />}
         </div>
     );
 }
