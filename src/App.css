@@ -28,10 +28,15 @@
   width: 100%;
   height:100vh;
 }
+.Cover h1 {
+  font-family: 'Shadows Into Light', cursive;
+  font-size:25px;
+  margin: 30px 0px 0px 0px;
+}
 .Cover h3 {
   font-size: 60px;
   font-weight: bold;
-  padding-top: 250px;
+  padding-top:20vh;
   margin-bottom: 50px;
 }
 .Cover .CoverInput {
@@ -70,18 +75,18 @@
 .Home .homeTitle h1 {
   font-family: 'Shadows Into Light', cursive;
   font-size:25px;
-  font-weight: bold;
-  margin: 50px 0px 40px 0px;
+  margin: 30px 0px 30px 0px;
 }
 
 .Home .homeTitle h3 {
-  font-size: 50px;
+  font-size: 38px;
   font-weight: bold;
   margin-bottom: 50px;
 }
 
 .Home .imgAndbtn {
   display: flex;
+  position: relative;
 }
 .Home .SimsimiBackground {
   display: flex;
@@ -91,26 +96,39 @@
   background-color: var(--white-color);
   border-radius: 30px;
   box-shadow: 5px 4px 10px #b1b1b1 ;
-  width: 450px;
-  height: 500px;
+  width: 60vh;
+  height: 52vh;
   align-items: center;
-  margin-left: 120px;
 }
 
 .Home .SimsimiBackground span {
   /* font-family: 'NanumSquare', sans-serif; */
-  font-size: 30px;
+  font-size: 25px;
+  width: 40vh;
+  /* border: 1px solid black; */
   position: absolute;
-  top:90px;
+  top:100px;
 }
-
-.Home .SimsimiBackground img {
-  bottom: 0;
-  margin-top: 120px;
-  width: 250px;
+.Home .SimsimiBackground .imgs {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top:40vh;
   animation: SimSimiImg 0.8s linear infinite alternate;
 }
-
+.Home .SimsimiBackground img {
+  width: 23vh;
+}
+.Home .SimsimiBackground .simsimi {
+  display: flex;
+  position: absolute;
+  bottom: 15px;
+}
+.Home .SimsimiBackground .shadow {
+  display: flex;
+  /* position: absolute; */
+  /* bottom: 0px; */
+}
 @keyframes SimSimiImg {
   0% {
     margin-left: 20px;
@@ -125,11 +143,12 @@
 
 .Home .teachBtn {
   display: flex;
-  /* position:fixed; */
+  position:fixed;
+  right:30px;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  margin: 80px 0px 0px 30px;
+  /* margin: 80px 0px 0px 30px; */
   width: 90px;
   height: 200px;
 }
@@ -169,8 +188,46 @@
   margin: 0px;
 }
 
+.Home .shareBtn {
+  top: 350px;
+}
+
+.Home .shareBtn img {
+  width: 40px;
+  height: 40px;
+  padding-right:5px;
+}
+
+.Home .imgAndbtn .fadeout {
+  animation: Fadeout 0.5s ease-out forwards;
+}
+
+.Home .imgAndbtn .fadein {
+  animation: Fadein 0.5s ease-out forwards;
+}
+
+@keyframes Fadeout {
+  0% {
+    right:30px;
+  }
+  100% {
+    right: -100px;
+  }
+}
+
+@keyframes Fadein {
+  0% {
+    right:-100px;
+  }
+  100% {
+    right: 30px;
+  }
+}
+
+
 .Home .messageInputSendArea{
   display: flex;
+  position: relative;
   justify-content: center;
   margin-top: 30px;
 }
@@ -182,9 +239,10 @@
 }
 .Home .messageInputArea input {
   margin-bottom: 20px;
-  margin-left: 50px;
-  width: 450px;
-  height: 30px;
+  margin-left: 70px;
+  /* width: 45vh; */
+  width: 60vh;
+  height: 4vh;
   padding: 10px;
   border-radius: 30px;
   border-style: none;
@@ -216,6 +274,20 @@
   height: 30px;
 }
 
+.Home .moveleft {
+  animation: MoveLeft 1s ease-out forwards;
+}
+
+@keyframes MoveLeft {
+  0% {
+    right:0vh;
+  }
+  100% {
+    right: 45vh;
+    /* width: 450px; */
+  }
+}
+
 /* MessageList.js */
 .MessageListContainer {
   display: flex;
@@ -224,8 +296,25 @@
   /* 부모는 Home 컴포넌트 */
   position: absolute;
   top: 20%;
-  left: 10%;
+  right: 10%;
 }
+
+.MessageListContainer {
+  animation: Fadein 0.5s ease-out forwards;
+}
+
+@keyframes Fadein {
+  0% {
+    opacity: 0;
+    top: 25%;
+  }
+  100% {
+    opacity: 1;
+    top: 20%;
+}
+
+}
+
 .MessageListContainer .MessageList {
   display: flex;
   flex-direction: column;
@@ -235,24 +324,40 @@
 /* MessageItem.js */
 .MessageItem {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 30px;
+  font-size: 20px;
+  margin: 20px 0px 20px 0px;
+  /* width: 300px; */
 }
-
-.MessageItem .answer {
-  border-radius: 30px;
-  background-color: #ffeaaf;
-  padding: 10px 20px 10px 20px;
-  margin: 10px;
+.MessageItem .teach, .simsimi {
+  display: flex;
+  /* width: 500px; */
 }
-
+.MessageItem .explain {
+  display: flex;
+  align-items:center;
+}
+.MessageItem span {
+  font-size: 25px;
+}
 .MessageItem .teachMessage {
+  width: 400px;
   border-radius: 30px;
-  background-color: #d3d3d3;
+  background-color: #2C2F37;
+  color: var(--white-color);
   padding: 10px 20px 10px 20px;
-  margin: 10px;
-  margin-top: 60px;
+  margin: 5px;
+  /* margin-top: 60px; */
+}
+.MessageItem .answer {
+  width: 400px;
+  border-radius: 30px;
+  background-color: #FFDD55;
+  padding: 10px 20px 10px 20px;
+  /* margin: 5px; */
+  overflow: hidden;
 }
 
 .Narration {
@@ -345,16 +450,34 @@
 }
 
 .TeachModal .TeachModalBox .okaybutton button{
-  /* background-color: var(--white-color); */
   /* font-family: 'Gamja Flower', cursive; */
   background-color: var(--white-color);
   font-weight: bold;
   font-size: 20px;
-  /* font-size: 25px; */
   align-items: center;
   justify-content: center;
   padding: 10px;
   margin-top: 40px;
+  border-style: none;
+  width: 400px;
+  height: 50px;
+  border-radius: 40px;
+  box-shadow: 3px 3px 10px #a6a6a6 ;
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+/* sharmodal */
+
+.TeachModal .linkShareButton button {
+  /* font-family: 'Gamja Flower', cursive; */
+  background-color: var(--white-color);
+  font-weight: bold;
+  font-size: 20px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin-top: 200px;
   border-style: none;
   width: 400px;
   height: 50px;

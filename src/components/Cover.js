@@ -4,7 +4,8 @@ const Cover = ({username, setUsername, usernameInput}) => {
 
     return (
         <div className="Cover">
-            <h3>나만의 AI 챗봇 심심이 만들기</h3>
+            <h1>Simsimi Edu</h1>
+            <h3>나만의 AI 챗봇 만들기</h3>
             <div className="CoverInput">
                 <img src={CoverSimSimi} alt="표지심심이"/>
                 <div className="inputName">

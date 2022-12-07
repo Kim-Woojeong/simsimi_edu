@@ -1,6 +1,6 @@
 // 이전, 내용, 다음 + 배경 컴포넌트를 하나로 조합해서 여러 컴포넌트 속에서 사용하기
 
-const Narration = ({step, setStep, username, usernameInput, setSimsimisay, asksimsimi, setAsksimsimi, asksimsimiInput, teachbuttonRef}) => {
+const Narration = ({data, step, setStep, username, usernameInput, setSimsimisay, asksimsimi, setAsksimsimi, asksimsimiInput}) => {
 
     // 이 시나리오는 밖으로 빼기
     const narrationContent = [{
@@ -72,7 +72,8 @@ const Narration = ({step, setStep, username, usernameInput, setSimsimisay, asksi
         console.log("현재단계", step);
 
         if(step > narrationContent.length-2){
-            alert("다음단계가 없습니다");
+            alert("모달 on!");
+            // Setendstep(true);
             return;
         }
 
@@ -100,6 +101,9 @@ const Narration = ({step, setStep, username, usernameInput, setSimsimisay, asksi
                 setStep(step+1);
             }
         }
+        if(step === 2){
+            alert("말을 가르치지않았어요!");
+        }
         // step 3 
         if(step === 3){
             setStep(step+1);
@@ -113,7 +117,7 @@ const Narration = ({step, setStep, username, usernameInput, setSimsimisay, asksi
                 console.log("말을 걸지않음.");
             } else {
                 setAsksimsimi("");
-                setSimsimisay("가르친말!");
+                setSimsimisay(data[0].teachAnswer);
                 setStep(step+1);
             }
         }
@@ -123,13 +127,14 @@ const Narration = ({step, setStep, username, usernameInput, setSimsimisay, asksi
         }
         if(step === 6){
             // 만약 가르친말이 총 3개 미만이라면 넘어가지않기
-            console.log("두개의 말 가르치러가기");
+            alert("말을 더 가르쳐보세요!");
         }
         if(step === 7){
             setStep(step+1);
         }
         if(step > 7){
             setStep(step+1);
+            setSimsimisay("");
         }
         // step이 8이면 이미지 옮기고 List 보이기
 
@@ -138,7 +143,7 @@ const Narration = ({step, setStep, username, usernameInput, setSimsimisay, asksi
     return (
         <div className="Narration">
             <div className="before" step={step} onClick={beforeStep}>{"<"} 이전</div>
-            <div className="contents">{narrationContent[step].contents} ({step})</div>
+            <div className="contents">{narrationContent[step].contents}</div>
             <div className="next" step={step} onClick={nextStep}>다음 {">"}</div>
         </div>
     )

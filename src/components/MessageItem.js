@@ -5,8 +5,14 @@ const MessageItem = ({
 }) => {
     return (
         <div className="MessageItem">
-            <span className="answer">심심이 : {teachAnswer}</span>
-            <span className="teachMessage">가르친 메세지 : {teachQuestion} </span>
+            <div className="teach">
+                <span className="teachMessage">{teachQuestion}</span>
+                <div className="explain">이라고말하면</div>
+            </div>
+            <div className="simsimi">
+                <span className="answer">{teachAnswer}</span>
+                <div className="explain">라고 답해</div>
+            </div>
         </div>
     )
 };
