@@ -95,7 +95,7 @@ function App() {
       <div className="App">
         { step === 0 ? 
           <Cover username={username} setUsername={setUsername} usernameInput={usernameInput}/> : 
-          <Home username={username} data={data} setData={setData} step={step} setStep={setStep} simsimisay={simsimisay} asksimsimiInput={asksimsimiInput} asksimsimi={asksimsimi} setAsksimsimi={setAsksimsimi} teachbuttonRef={teachbuttonRef} teachQuestionInput={teachQuestionInput} teachAnswerInput={teachAnswerInput}/> }
+          <Home username={username} data={data} setData={setData} step={step} setStep={setStep} simsimisay={simsimisay} setSimsimisay={setSimsimisay} asksimsimiInput={asksimsimiInput} asksimsimi={asksimsimi} setAsksimsimi={setAsksimsimi} teachbuttonRef={teachbuttonRef} teachQuestionInput={teachQuestionInput} teachAnswerInput={teachAnswerInput}/> }
         {<Narration data={data} step={step} setStep={setStep} username={username} usernameInput={usernameInput} setSimsimisay={setSimsimisay} asksimsimi={asksimsimi} setAsksimsimi={setAsksimsimi} asksimsimiInput={asksimsimiInput} teachbuttonRef={teachbuttonRef}/>}
 
         {/* <MessageList MessageList={data}/> */}

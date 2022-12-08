@@ -8,7 +8,7 @@ import MessageList from "./MessageList";
 import SimsimiShadow from "../img/simsimishadow.png"
 import ShareModal from "./ShareModal";
 
-const Home = ({username, data, setData, setStep, step, simsimisay, asksimsimiInput, asksimsimi, setAsksimsimi, teachbuttonRef, teachQuestionInput, teachAnswerInput}) => {
+const Home = ({username, data, setData, setStep, step, simsimisay, setSimsimisay, asksimsimiInput, asksimsimi, setAsksimsimi, teachbuttonRef, teachQuestionInput, teachAnswerInput}) => {
     const [isvisible, setIsvisible] = useState(false);
     const [shareisvisible, setShareisvisible] = useState(false);
 
@@ -45,6 +45,9 @@ const Home = ({username, data, setData, setStep, step, simsimisay, asksimsimiInp
         setData([...data, newMessage]);
         console.log("현재 입력한 데이터 : ",newMessage);
     }
+    
+
+    // 단계별 컴포넌트들 CSS style 변형
 
     if(step === 9){
         teachBtnRef.current.className = "teachBtn fadeout";
@@ -69,10 +72,19 @@ const Home = ({username, data, setData, setStep, step, simsimisay, asksimsimiInp
     }
 
 
+    // Handle Buttons Click
+
     function handleSubmit () {
+        console.log(step);
         if(asksimsimi.length === 0){
             alert("말을 걸지 않았습니다.");
             asksimsimiInput.current.focus();
+        } else {
+            if(step === 1){
+                setStep(2);
+                setSimsimisay("모르는말이에요 가르쳐주세요!");
+            }
+            setAsksimsimi("");
         }
     };
 

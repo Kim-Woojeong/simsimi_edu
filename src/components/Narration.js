@@ -111,6 +111,8 @@ const Narration = ({data, step, setStep, username, usernameInput, setSimsimisay,
         // step 4 (만약 말을 안걸었다면 포커스)
         if(step === 4){
             console.log("말을 걸어보자");
+            setAsksimsimi(data[0].asksimsimi);
+
             if(asksimsimi.length === 0){
                 asksimsimiInput.current.focus();
                 alert("말을 걸지 않았어요!");
