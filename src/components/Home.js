@@ -70,13 +70,10 @@ const Home = ({username, data, setData, setStep, step, simsimisay, asksimsimiInp
 
 
     function handleSubmit () {
-        // alert("다른사람이 이렇게 말하면 : " + state.contents + "/ 심심이가 대답합니다" + state.answer);
-        // onCreate(state.contents);
-
-        // setState({
-        //     contents: "",
-        //     // answer: "",
-        // });
+        if(asksimsimi.length === 0){
+            alert("말을 걸지 않았습니다.");
+            asksimsimiInput.current.focus();
+        }
     };
 
     const handleTeachModal = () => {
@@ -150,7 +147,10 @@ const Home = ({username, data, setData, setStep, step, simsimisay, asksimsimiInp
                         placeholder="심심이에게 말걸기"
                     />
                 </div>
-                <button className="submitBtn" onClick={handleSubmit}>
+                <button 
+                    className="submitBtn" 
+                    onClick={handleSubmit}
+                >
                     <img src={Arrow} alt="보내기버튼"/>
                 </button>
             </div>
