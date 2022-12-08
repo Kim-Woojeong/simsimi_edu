@@ -5,28 +5,32 @@ import share from "../img/share.png";
 import Arrow from "../img/Arrow.png"
 import TeachModal from "./TeachModal";
 import MessageList from "./MessageList";
-import Share from "./ShareModal";
 import SimsimiShadow from "../img/simsimishadow.png"
 import ShareModal from "./ShareModal";
 
-const Home = ({data, setData, setStep, step, simsimisay, asksimsimiInput, asksimsimi, setAsksimsimi, teachbuttonRef, teachQuestionInput, teachAnswerInput}) => {
+const Home = ({username, data, setData, setStep, step, simsimisay, asksimsimiInput, asksimsimi, setAsksimsimi, teachbuttonRef, teachQuestionInput, teachAnswerInput}) => {
     const [isvisible, setIsvisible] = useState(false);
     const [shareisvisible, setShareisvisible] = useState(false);
 
+    const BtnsRef = useRef();
     const teachBtnRef = useRef();
     const shareBtnRef = useRef();
     const SimsimiBackgroundRef = useRef();
     const messageInputSendAreaRef = useRef();
-    const MessageListContainerRef = useRef();
+    const teachRef = useRef();
+    const arrow_1Ref = useRef();
+    const arrow_2Ref = useRef();
+
+    const dataId = useRef(0);
 
     const onCreate = (teachQuestion, teachAnswer) => {
+
         const newMessage = {
-          // id: dataId.current,
-          // id 는 Step 값 넣기
           teachQuestion,
           teachAnswer,
+          id:dataId.current,
         };
-        // dataId.current += 1;
+        dataId.current += 1;
         console.log("지금까지 가르친 말은 : ",data);
 
         // 최초 가르친거라먄
@@ -49,13 +53,19 @@ const Home = ({data, setData, setStep, step, simsimisay, asksimsimiInput, asksim
         SimsimiBackgroundRef.current.className = "SimsimiBackground moveleft";
         SimsimiBackgroundRef.current.style = "width: 450px";
         messageInputSendAreaRef.current.className =  "messageInputSendArea moveleft";
-
-        // MessageListContainerRef.current.className = "MessageListContainer fadein";
     }
-
     if(step === 11){
-        teachBtnRef.current.className = "teachBtn fadein";
-        shareBtnRef.current.className = "teachBtn shareBtn fadein";
+        console.log("dash 강조!");
+        // teachRef.current.className = "teach dashed";
+        arrow_1Ref.current.className = "arrow arrow_1 searchingAnimation";
+    }
+    if(step === 12){
+        arrow_2Ref.current.className = "arrow arrow_2 leftToRight";
+    }
+    if(step === 13){
+        console.log("아이콘 페이드인!");
+        // teachBtnRef.current.className = "teachBtn fadein";
+        // shareBtnRef.current.className = "teachBtn shareBtn fadein";
     }
 
 
@@ -99,28 +109,31 @@ const Home = ({data, setData, setStep, step, simsimisay, asksimsimiInput, asksim
                         <img className="simsimi" src={SimsimiImg} alt="심심이이미지"/>
                     </div>
                 </div>
-                
-                <div 
-                    ref={teachBtnRef}
-                    className="teachBtn">
-                    <button 
-                        ref={teachbuttonRef}
-                        onClick={handleTeachModal}
-                    >
-                        <img src={graduation_cap} alt="학사모"/>
-                    </button>
-                    <div className="teach">가르치기</div>
-                </div>
                 <div
-                    ref={shareBtnRef} 
-                    className="teachBtn shareBtn">
-                    <button 
-                        // ref={sharebuttonRef}
-                        onClick={handleShareModal}
-                    >
-                        <img src={share} alt="공유"/>
-                    </button>
-                    <div className="teach">공유하기</div>
+                    ref={BtnsRef}
+                    className="Btns">
+                    <div
+                        ref={teachBtnRef}
+                        className="teachBtn">
+                        <button 
+                            ref={teachbuttonRef}
+                            onClick={handleTeachModal}
+                        >
+                            <img src={graduation_cap} alt="학사모"/>
+                        </button>
+                        <div className="teach">가르치기</div>
+                    </div>
+                    <div
+                        ref={shareBtnRef} 
+                        className="teachBtn shareBtn">
+                        <button 
+                            // ref={sharebuttonRef}
+                            onClick={handleShareModal}
+                        >
+                            <img src={share} alt="공유"/>
+                        </button>
+                        <div className="teach fadeout">공유하기</div>
+                    </div>
                 </div>
             </div>
 
@@ -141,10 +154,11 @@ const Home = ({data, setData, setStep, step, simsimisay, asksimsimiInput, asksim
                     <img src={Arrow} alt="보내기버튼"/>
                 </button>
             </div>
-            { (step > 8) && <MessageList MessageList={data} />}
+            { (step > 8) && <MessageList MessageList={data} teachRef={teachRef} arrow_1Ref={arrow_1Ref} arrow_2Ref={arrow_2Ref}/>}
             {/* 심심이 말 가르치기 modal */}
             {isvisible && <TeachModal data={data} onCreate={onCreate} isvisible={isvisible} setIsvisible={setIsvisible} teachQuestionInput={teachQuestionInput} teachAnswerInput={teachAnswerInput}  />}
-            {shareisvisible && <ShareModal shareisvisible={shareisvisible} setShareisvisible={setShareisvisible}/>}
+            {shareisvisible && <ShareModal shareisvisible={shareisvisible} setShareisvisible={setShareisvisible} username={username}/>}
+            
         </div>
     );
 }

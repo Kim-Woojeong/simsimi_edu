@@ -2,12 +2,13 @@ import { useState } from "react";
 import CloseBtn from "../img/closebutton.png";
 
 
-const TeachModal = ({data, onCreate, isvisible, setIsvisible, teachQuestionInput, teachAnswerInput,}) => {
+const TeachModal = ({id, data, onCreate, isvisible, setIsvisible, teachQuestionInput, teachAnswerInput,}) => {
 
     // teachInput
     const [state, setState] = useState({
         teachQuestion: "",
         teachAnswer: "",
+
     });
 
     const [localContent, setLocalContent] = useState("");
@@ -35,19 +36,28 @@ const TeachModal = ({data, onCreate, isvisible, setIsvisible, teachQuestionInput
 
     const handleOkayModal = () => {
 
-        onCreate(state.teachQuestion, state.teachAnswer);
-        alert(`${data.length+1}개의 말을 가르쳤습니다.`);
-        handleCloseModal();
-
-        setState({
-            teachQuestion: "",
-            teachAnswer: "",
-        });
+        if(state.teachQuestion.length === 0){
+            alert("가르칠 말을 다 입력하지 않았습니다");
+            teachQuestionInput.current.focus();
+        }
+        else if(state.teachAnswer.length === 0){
+            alert("가르칠 말을 다 입력하지 않았습니다");
+            teachAnswerInput.current.focus();
+        } else {
+            onCreate(state.teachQuestion, state.teachAnswer);
+            alert(`${data.length+1}개의 말을 가르쳤습니다.`);
+            handleCloseModal();
+    
+            setState({
+                teachQuestion: "",
+                teachAnswer: "",
+            });
+        }
     }
 
     return(
-        <div className="TeachModal">
-            <div className="TeachModalBox">
+        <div className="Modal TeachModal">
+            <div className="ModalBox TeachModalBox">
                 <div className="CloseBtn" onClick={handleCloseModal}>
                     <img src={CloseBtn} alt="닫기버튼"/>
                 </div>
